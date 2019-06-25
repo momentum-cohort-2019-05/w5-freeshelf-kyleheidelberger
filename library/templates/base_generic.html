@@ -15,9 +15,9 @@
 <body>
     {% block sidebar %}
     <ul>
-        <li>Home</li>
-        <li>Books</li>
-        <li>Authors</li>
+        <li><a href="{% url 'index' %}">Home</a></li>
+        <li><a href="{% url 'books' %}">All Books</a></li>
+        <li><a href="{% url 'authors' %}">Authors</a></li>
     </ul>
     {% endblock %}
 

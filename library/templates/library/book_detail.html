@@ -1,0 +1,12 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Title: {{ book.title }}</h1>
+
+<p><strong>Author:</strong> <a href="">{{ book.author }}</a></p>
+<p><strong>Description:</strong> {{ book.description }}</p>
+<p><strong>Categories:</strong> {{ book.categories }}</p>
+<p><strong>Date Added:</strong> {{ book.date_added }}</p>
+<p><strong>Favorited By:</strong> {{ book.favorite_of }}</p>
+
+{% endblock %}
