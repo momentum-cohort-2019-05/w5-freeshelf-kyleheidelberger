@@ -37,7 +37,8 @@ class Book(models.Model):
                                    help_text="A description of the book")
     date_added = models.DateField(auto_now_add=True,
                                   help_text="Date added to the database")
-    # cover = models.URLField(max_length=300, unique=true, help_text="Unique URL for the image of the book cover")
+    cover = models.URLField(max_length=300, unique=True, blank=True,
+                            null=True, help_text="Unique URL for the image of the book cover")
     category = models.ManyToManyField(
         'Category', help_text='Select categories for this book')
     favorite_of = models.ManyToManyField(
@@ -66,7 +67,7 @@ class Category(models.Model):
         """
         A function to return a link to book's unique page.
         """
-        return reverse('category', args=[str(self.id)])
+        return reverse('category-detail', args=[str(self.id)])
 
     class Meta:
         verbose_name_plural = "categories"

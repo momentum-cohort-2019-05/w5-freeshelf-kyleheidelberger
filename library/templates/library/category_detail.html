@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ category.name }}</h1>
+
+<p><strong>Books:</strong></p>
+{% for book in category.book_set.all %}
+<a href="{% url 'book-detail' book.pk %}">{{book}}</a>
+{{book.description}}
+{% endfor %}
+{% endblock %}

@@ -4,5 +4,10 @@
 <h1>{{ author.full_name }}</h1>
 
 <p><strong>Books:</strong></p>
-
+<dl>
+    {% for book in author.book_set.all %}
+    <dt><a href="{% url 'book-detail' book.pk %}">{{book}}</a></dt>
+    <dd>{{book.description}}</dd>
+    {% endfor %}
+</dl>
 {% endblock %}
