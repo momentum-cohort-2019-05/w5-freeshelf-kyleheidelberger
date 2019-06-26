@@ -70,3 +70,9 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = "categories"
+
+    def __str__(self):
+        """
+        Returns the book's title as a string.
+        """
+        return self.name
