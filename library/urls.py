@@ -12,5 +12,6 @@ urlpatterns = [
          name='category-detail'),
     path('favorites/', views.FavoriteListView.as_view(), name='favorites'),
     # path('book/<int:pk>/favorite', views.add_to_favorites, name="add-favorite"),
+    # path('favorites/', views.FavoriteListView.as_view(), name='favorites'),
 
 ]

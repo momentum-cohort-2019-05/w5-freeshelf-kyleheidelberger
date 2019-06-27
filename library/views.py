@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from library.models import Book, Author, Category
+from library.models import Book, Author, Category#, Favorite
 from django.views import generic, View
 from django.contrib.auth.decorators import login_required
 from .forms import FavForm
@@ -80,3 +80,7 @@ class FavoriteListView(View):
             "user_favorites": user_favorites,
             "form": form,
         })
+
+
+# class FavoriteListView(generic.ListView):
+#     model = Favorite

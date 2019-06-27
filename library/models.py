@@ -77,3 +77,12 @@ class Category(models.Model):
         Returns the book's title as a string.
         """
         return self.name
+
+
+# class Favorite(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+#     book = models.ForeignKey(Book, on_delete=models.SET_NULL, null=True)
+
+    # class Meta:
+    #     unique_together = [['user', 'book']]
+    
