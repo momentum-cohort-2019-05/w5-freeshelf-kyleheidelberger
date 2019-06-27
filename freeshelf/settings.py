@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+import django_heroku
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -23,7 +24,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 't8&u62o0096uh^q2*8bqh^2!nbe(96c^e@5@q=#rgb0_rm^&wo'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+in_production = bool(os.getenv('PRODUCTION'))
+DEBUG = not in_production
 
 ALLOWED_HOSTS = []
 
@@ -125,5 +127,4 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/'
 
 # Configure Django App for Heroku.
-import django_heroku
 django_heroku.settings(locals())
