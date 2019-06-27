@@ -2,10 +2,13 @@
 
 {% block content %}
 <h1>{{ category.name }}</h1>
-
+{% if category.book_set.all %}
 <p><strong>Books:</strong></p>
 {% for book in category.book_set.all %}
 <a href="{% url 'book-detail' book.pk %}">{{book}}</a>
 {{book.description}}
 {% endfor %}
+{% else %}
+<p>There are no books in this category.</p>
+{% endif %}
 {% endblock %}

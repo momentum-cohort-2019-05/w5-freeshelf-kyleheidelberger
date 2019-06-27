@@ -9,4 +9,16 @@
 <p><strong>Date Added:</strong> {{ book.date_added }}</p>
 <p><strong>Favorited By:</strong> {{ book.favorite_of }}</p>
 
+{% if user.is_authenticated %}
+<section id="add-favorite">
+    <form action="{% url 'favorites' %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p>
+            <button type="submit">Add to Favorites</button>
+        </p>
+
+    </form>
+</section>
+{% endif %}
 {% endblock %}
