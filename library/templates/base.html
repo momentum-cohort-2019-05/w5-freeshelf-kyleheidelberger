@@ -23,7 +23,8 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div>
-                    <a id="logo" class="navbar-brand p-3 bd-highight font-weight-bold" href="{% url 'index' %}" title="Home">F r e
+                    <a id="logo" class="navbar-brand p-3 bd-highight font-weight-bold" href="{% url 'index' %}"
+                        title="Home">F r e
                         e s h e l f</a>
                 </div>
 
@@ -41,9 +42,15 @@
                         <li class="nav-item">
                             <a class="text-reset" href="{% url 'categories' %}" title="Categories">Categories</a>
                         </li>
+                        {% if request.user.is_authenticated %}
                         <li class="nav-item">
                             <a class="text-reset" href="{% url 'favorites' request.user.id %}"
                                 title="Favorites">Favorites</a>
+
+                            {% else %}
+                            <a class="text-reset" href="{% url 'auth_login' %}">Login</a>
+                            <a class="text-reset" href="{% url 'registration_register' %}">Register</a>
+                            {% endif %}
                         </li>
                     </ul>
                 </div>
@@ -53,8 +60,8 @@
                     {% if request.user.is_authenticated %}
                     Logged in as {{ request.user }} | <a class="text-reset" href="{% url 'auth_logout' %}">Logout</a>
                     {% else %}
-                    <a class="" href="{% url 'auth_login' %}">Login</a> |
-                    <a class="" href="{% url 'registration_register' %}">Register</a>
+                    <a class="text-reset" href="{% url 'auth_login' %}">Login</a> |
+                    <a class="text-reset" href="{% url 'registration_register' %}">Register</a>
                     {% endif %}
                 </div>
             </div>
@@ -67,11 +74,11 @@
         {% endblock %}
     </div>
     <footer id="sticky-footer">
-            <div class="card-footer text-info">
-                <div class="container-fluid">
+        <div class="card-footer text-info">
+            <div class="container-fluid">
                 Thanks for visiting!
             </div>
-            </div>
+        </div>
     </footer>
 
     <!-- Bootstrap code for Nav Header Dropdown -->

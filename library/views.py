@@ -28,7 +28,6 @@ def index(request):
 #     model = Book
 
 
-@login_required
 def book_list(request):
     valid_sorts = ['title', 'author', 'date_added']
 
@@ -75,6 +74,7 @@ class CategoryDetailView(generic.DetailView):
     model = Category
 
 
+@login_required
 def favorites(request, pk):
     valid_sorts = ['title', 'author', 'date_added', 'date_favorited']
     user = User.objects.get(id=pk).username
@@ -96,6 +96,7 @@ def favorites(request, pk):
     })
 
 
+@login_required
 def book_detail(request, pk):
     if request.method == 'POST':
         form = FavForm(request.POST)
