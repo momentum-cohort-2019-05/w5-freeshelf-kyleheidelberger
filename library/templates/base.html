@@ -22,10 +22,10 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div>
-                <a class="navbar-brand" href="{% url 'index' %}" title="Home">Freeshelf</a>
+                <a class="navbar-brand p-3 bd-highight font-weight-bold text-uppercase" href="{% url 'index' %}" title="Home">Freeshelf</a>
             </div>
 
-            <div class="collapse navbar-collapse" id="navBarSupportedContent">
+            <div class="collapse navbar-collapse p-3 bd-highlight" id="navBarSupportedContent">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li class="nav-item active">
                         <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
@@ -40,13 +40,13 @@
                         <a class="" href="{% url 'categories' %}" title="Categories">Categories</a>
                     </li>
                     <li class="nav-item">
-                        <a class="" href="{% url 'favorites' %}" title="Favorites">Favorites</a>
+                        <a class="" href="{% url 'favorites' request.user.id %}" title="Favorites">Favorites</a>
                     </li>
                 </ul>
             </div>
 
 
-            <div class="">
+            <div class="p-3 flex-grow-1 bd-highlight text-right">
                 {% if request.user.is_authenticated %}
                 Logged in as {{ request.user }} | <a href="{% url 'auth_logout' %}">Logout</a>
                 {% else %}
@@ -57,13 +57,11 @@
         </nav>
     </header>
 
-    {#<li><a href="{% url 'favorites' %}">My Favorites</a></li>#}
-
-
-
-    {% block content %}
-    <p>This is content.</p>
-    {% endblock %}
+    <div class="container p-4">
+        {% block content %}
+        <p>This is content.</p>
+        {% endblock %}
+    </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

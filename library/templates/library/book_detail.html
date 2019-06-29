@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1>Title: {{ book.title }}</h1>
-
+<img src="{{ book.cover }}" class="img-fluid w-50 p-3" alt="Responsive image">
 <p><strong>Author:</strong> <a href="">{{ book.author }}</a></p>
 <p><strong>Description:</strong> {{ book.description }}</p>
 <p><strong>Categories:</strong> {{ book.categories }}</p>
@@ -10,15 +10,23 @@
 <p><strong>Favorited By:</strong> {{ book.favorite_of }}</p>
 
 {% if user.is_authenticated %}
-<section id="add-favorite">
-    <form action="{% url 'favorites' %}" method="POST">
+{% if user in favorite_users %}
+<section id="remove favorite">
+    <form action="{% url 'book-detail' pk=book.pk %}" method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
-        <p>
-            <button type="submit">Add to Favorites</button>
-        </p>
-
+        <input type="hidden" name="{{ form.favorite.html_name }}" value="False">
+        <button type="submit">Remove from Favorites</button>
+    </form>
+</section>
+{% else %}
+<section id="add-favorite">
+    <form action="{% url 'book-detail' pk=book.pk %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="{{ form.favorited.html_name }}" value="True">
+        <button type="submit">Add to Favorites</button>
     </form>
 </section>
 {% endif %}
+{% endif %}
+
 {% endblock %}

@@ -2,18 +2,53 @@
 
 {% block content %}
 
-<h2>My Favorite Books:</h2>
-{% if user_favorites %}
+<h2>User: {{ user }}'s Favorite Books:</h2>
+{% if book_list %}
+<div class="container">
+    <div>
+        <p>Sort by:
+            {% for sort_type in valid_sorts %}
+            {% if sort == sort_type %}
+            <strong>{{ sort_type }}</strong>
+            {% else %}
+            <a href="?sort={{ sort_type }}">{{ sort_type }}</a>
+            {% endif %}
+            {% endfor %}
+        </p>
+    </div>
+    <div>
+        {% for book in book_list %}
+        <ul class="list-unstyled">
+            <li>
+                <a href="{% url 'book-detail' pk=book.pk %}"><img src="{{ book.cover }}" class="img-fluid w-25 p-3">
+                </a></li>
+            <li>{{book}}</li>
+            <li>
+                <strong>Categories: </strong>
+                {% for type in book.category.all %}
+                <a href="{{ type.get_absolute_url }}">{{ type }}</a>
+                {% endfor %}
+            </li>
+            <br>
+            <li>Added on {{ book.date_added }}</li>
+            <br>
+            <!-- <i>Favorited on {{ book.date_favorited }}</i> -->
+        </ul>
+    </div>
+    <div class="container">
+        <section id="remove favorite">
+            <form action="{% url 'book-detail' pk=book.pk %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="{{ form.favorite.html_name }}" value="False">
+                <button type="submit">Remove from Favorites</button>
+            </form>
+        </section>
+    </div>
 
-{% for book in user_favorites %}
-<ul class="list-unstyled">
-    <li><a href="{% url 'book-detail' book.pk %}"><img src="{{ book.cover }}" class="w-25 p-3"> {{book}}</a>
-    </li>
-</ul>
 {% endfor %}
 
 {% else %}
 <p>You have not favorited any books.</p>
 {% endif %}
-
+</div>
 {% endblock %}

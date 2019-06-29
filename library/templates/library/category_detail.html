@@ -2,10 +2,13 @@
 
 {% block content %}
 <h1>{{ category.name }}</h1>
+
 {% if category.book_set.all %}
 <p><strong>Books:</strong></p>
 {% for book in category.book_set.all %}
-<a href="{% url 'book-detail' book.pk %}">{{book}}</a>
+<a href="{% url 'book-detail' book.pk %}"><img src="{{ book.cover }}" class="img-fluid w-25 p-3" alt="Responsive image">
+    {{ book.title }}
+</a> ({{book.author}})</a><br>
 {{book.description}}
 {% endfor %}
 {% else %}

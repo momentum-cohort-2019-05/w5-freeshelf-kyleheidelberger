@@ -24,25 +24,32 @@ class Author(models.Model):
         """
         return reverse('author-detail', args=[str(self.id)])
 
+    class Meta:
+        ordering = ['full_name']
+
 
 class Book(models.Model):
     """
     A Model Class for books in the database.
     """
-    title = models.CharField(max_length=100, help_text="Title of the book")
-    author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True)
+    title = models.CharField(max_length=100, verbose_name="Book Title", 
+                             help_text="Title of the book")
+    author = models.ForeignKey(
+        Author, on_delete=models.SET_NULL, null=True, verbose_name="Book Author")
     url = models.URLField(max_length=200, unique=True,
                           help_text="Unique URL for the book")
     description = models.TextField(max_length=2000,
                                    help_text="A description of the book")
-    date_added = models.DateField(auto_now_add=True,
+    date_added = models.DateField(auto_now_add=True, verbose_name="Date Added to Library",
                                   help_text="Date added to the database")
     cover = models.URLField(max_length=300, unique=True, blank=True,
                             null=True, help_text="Unique URL for the image of the book cover")
     category = models.ManyToManyField(
         'Category', help_text='Select categories for this book')
-    favorite_of = models.ManyToManyField(
-        User, blank=True, help_text="Add to favorites list for user")
+    num_favorited = models.PositiveIntegerField(default=0)
+    # THIS WORKED TO GENERATE A FAVORITES LIST WHEN THEY WERE ADDED THROUGH ADMIN, BUT COULDNT GET A ADD FUNCTION TO WORK
+    # favorite_of = models.ManyToManyField(
+    #     User, blank=True, help_text="Add to favorites list for user")
 
     def get_absolute_url(self):
         """
@@ -57,7 +64,7 @@ class Book(models.Model):
         return self.title
 
     class Meta:
-        ordering = ['-date_added']
+        ordering = ['-date_added', 'title']
 
 
 class Category(models.Model):
@@ -78,11 +85,17 @@ class Category(models.Model):
         """
         return self.name
 
+# SWITCHED TO THIS WHEN COULDNT GET ADD FAVORITE FUNCTION TO WORK USING MANY TO MANY MODEL
 
-# class Favorite(models.Model):
-#     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-#     book = models.ForeignKey(Book, on_delete=models.SET_NULL, null=True)
 
-    # class Meta:
-    #     unique_together = [['user', 'book']]
-    
+class Favorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    book = models.ForeignKey(Book, on_delete=models.SET_NULL, null=True)
+    date_favorited = models.DateField(auto_now_add=True, verbose_name="Date Favorited")
+
+    class Meta:
+        unique_together = [['user', 'book']]
+        ordering = ['-date_favorited']
+
+    def __str__(self):
+        return f"{self.user} | {self.book}"

@@ -1,5 +1,6 @@
 from django import forms
-from .models import Book, Author, Category#, Favorite
+# from .models import Book, Favorite
+
 
 class FavForm(forms.Form):
-    favorite = forms.BooleanField(required=False)
+    favorited = forms.BooleanField(required=False)

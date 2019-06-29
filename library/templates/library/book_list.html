@@ -2,12 +2,21 @@
 
 {% block content %}
 <h1>All Books</h1>
+<p>Books Sorted By:</p>
+{% for sort_type in valid_sorts %}
+{% if sort == sort_type %}
+<strong>{{ sort_type }}</strong>
+{% else %}
+<a href="?sort={{ sort_type }}">{{ sort_type }}</a>
+{% endif %}
+{% endfor %}
+
 {% if book_list %}
 <ul class="list-unstyled">
     {% for book in book_list %}
     <li>
         <a href="{{ book.get_absolute_url }}">
-            <img src="{{ book.cover }}" class="w-25 p-3"> {{ book.title }}
+            <img src="{{ book.cover }}" class="img-fluid w-25 p-3" alt="Responsive image"> {{ book.title }}
         </a> ({{book.author}})
     </li>
     {% endfor %}
@@ -15,4 +24,28 @@
 {% else %}
 <p>There are no books in the Freeshelf Library.</p>
 {% endif %}
+
+<!-- did some pagination but it won't save sort across pages without cookies... -->
+<!-- 
+{% if book_list.has_other_pages %}
+<ul class="pagination">
+    {% if book_list.has_previous %}
+    <li><a href="?page={{ book_list.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+    <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in book_list.paginator.page_range %}
+    {% if book_list.number == i %}
+    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+    {% else %}
+    <li><a href="?page={{ i }}">{{ i }}</a></li>
+    {% endif %}
+    {% endfor %}
+    {% if book_list.has_next %}
+    <li><a href="?page={{ book_list.next_page_number }}">&raquo;</a></li>
+    {% else %}
+    <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+</ul>
+{% endif %} -->
 {% endblock %}

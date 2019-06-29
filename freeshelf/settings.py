@@ -27,7 +27,9 @@ SECRET_KEY = 't8&u62o0096uh^q2*8bqh^2!nbe(96c^e@5@q=#rgb0_rm^&wo'
 in_production = bool(os.getenv('PRODUCTION'))
 DEBUG = not in_production
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'https://freeshelf-library.herokuapp.com/'
+]
 
 
 # Application definition
