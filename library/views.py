@@ -15,10 +15,14 @@ def index(request):
     View function for home page of site.
     """
     num_books = Book.objects.count()
+    num_authors = Author.objects.count()
+    num_categories = Category.objects.count()
     recent_book_list = Book.objects.order_by('date_added')[:3]
 
     context = {
         'num_books': num_books,
+        'num_authors': num_authors,
+        'num_categories': num_categories,
         'recent_book_list': recent_book_list,
     }
 
