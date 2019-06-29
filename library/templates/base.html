@@ -1,5 +1,3 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,49 +9,54 @@
     {% block meta %}{% endblock %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    {#<link rel="stylesheet" href="{% static 'css/styles.css' %}">#}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 
 <body>
     <header class="">
-        <nav class="navbar navbar-dark bg-dark">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navBarSupportedContent"
-                aria-controls="navBarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div>
-                <a class="navbar-brand p-3 bd-highight font-weight-bold text-uppercase" href="{% url 'index' %}"
-                    title="Home">Freeshelf</a>
-            </div>
+        <nav class="navbar navbar-dark bg-info">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navBarSupportedContent" aria-controls="navBarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div>
+                    <a id="logo" class="navbar-brand p-3 bd-highight font-weight-bold" href="{% url 'index' %}" title="Home">F r e
+                        e s h e l f</a>
+                </div>
 
-            <div class="collapse navbar-collapse p-3 bd-highlight" id="navBarSupportedContent">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="" href="{% url 'books' %}" title="Books">Books</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="" href="{% url 'authors' %}" title="Authors">Authors</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="" href="{% url 'categories' %}" title="Categories">Categories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="" href="{% url 'favorites' request.user.id %}" title="Favorites">Favorites</a>
-                    </li>
-                </ul>
-            </div>
+                <div class="collapse navbar-collapse p-3 bd-highlight" id="navBarSupportedContent">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="text-reset" href="{% url 'books' %}" title="Books">Books</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="text-reset" href="{% url 'authors' %}" title="Authors">Authors</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="text-reset" href="{% url 'categories' %}" title="Categories">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="text-reset" href="{% url 'favorites' request.user.id %}"
+                                title="Favorites">Favorites</a>
+                        </li>
+                    </ul>
+                </div>
 
 
-            <div class="p-3 flex-grow-1 bd-highlight text-right">
-                {% if request.user.is_authenticated %}
-                Logged in as {{ request.user }} | <a href="{% url 'auth_logout' %}">Logout</a>
-                {% else %}
-                <a class="" href="{% url 'auth_login' %}">Login</a> |
-                <a class="" href="{% url 'registration_register' %}">Register</a>
-                {% endif %}
+                <div class="p-3 flex-grow-1 bd-highlight text-right">
+                    {% if request.user.is_authenticated %}
+                    Logged in as {{ request.user }} | <a class="text-reset" href="{% url 'auth_logout' %}">Logout</a>
+                    {% else %}
+                    <a class="" href="{% url 'auth_login' %}">Login</a> |
+                    <a class="" href="{% url 'registration_register' %}">Register</a>
+                    {% endif %}
+                </div>
             </div>
         </nav>
     </header>
@@ -63,8 +66,12 @@
         <p>This is content.</p>
         {% endblock %}
     </div>
-    <footer class="footer">
-        <p>This is footer.</p>
+    <footer id="sticky-footer">
+            <div class="card-footer text-info">
+                <div class="container-fluid">
+                Thanks for visiting!
+            </div>
+            </div>
     </footer>
 
     <!-- Bootstrap code for Nav Header Dropdown -->

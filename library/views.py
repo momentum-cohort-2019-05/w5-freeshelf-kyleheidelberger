@@ -15,9 +15,11 @@ def index(request):
     View function for home page of site.
     """
     num_books = Book.objects.count()
+    recent_book_list = Book.objects.order_by('date_added')[:3]
 
     context = {
         'num_books': num_books,
+        'recent_book_list': recent_book_list,
     }
 
     return render(request, 'index.html', context=context)

@@ -10,14 +10,13 @@
 <a href="?sort={{ sort_type }}">{{ sort_type }}</a>
 {% endif %}
 {% endfor %}
-
 {% if book_list %}
 <ul class="list-unstyled">
     {% for book in book_list %}
     <li>
         <a href="{{ book.get_absolute_url }}">
             <img src="{{ book.cover }}" class="img-fluid w-25 p-3" alt="Responsive image"> {{ book.title }}
-        </a> ({{book.author}})
+        </a> -- {{book.author}}
     </li>
     {% endfor %}
 </ul>

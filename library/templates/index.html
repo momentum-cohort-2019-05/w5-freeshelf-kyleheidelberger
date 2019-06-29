@@ -6,4 +6,21 @@
 <ul>
     <li>Books: {{ num_books }}</li>
 </ul>
+
+<h2>Recently Added Books:</h2>
+{% if recent_book_list %}
+<ul class="list-unstyled">
+    {% for book in recent_book_list %}
+    <li>
+        <a href="{{ book.get_absolute_url }}">
+            <img src="{{ book.cover }}" id="thumbnail" class="img-fluid w-25 p-3" alt="Responsive image">
+            {{ book.title }}
+        </a> -- {{book.author}}
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>There are no books in the Freeshelf Library.</p>
+{% endif %}
+
 {% endblock %}
