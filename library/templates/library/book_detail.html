@@ -5,9 +5,11 @@
 <img src="{{ book.cover }}" class="img-fluid w-50 p-3" alt="Responsive image">
 <p><strong>Author:</strong> <a href="">{{ book.author }}</a></p>
 <p><strong>Description:</strong> {{ book.description }}</p>
-<p><strong>Categories:</strong> {{ book.categories }}</p>
+<p><strong>Categories:</strong> {% for type in book.category.all %}<a
+        href="{{ type.get_absolute_url }}">{{ type }}</a>{% endfor %}</p>
 <p><strong>Date Added:</strong> {{ book.date_added }}</p>
-<p><strong>Favorited By:</strong> {{ book.favorite_of }}</p>
+<p><strong>Favorited:</strong> {{ book.num_favorited }} time{{book.num_favorited|pluralize}}</p>
+<!-- <p><strong>Favorited By:</strong> {{ favorite.user }}</p> -->
 
 {% if user.is_authenticated %}
 {% if user in favorite_users %}

@@ -6,7 +6,7 @@
 {% if book_list %}
 <div class="container">
     <div>
-        <p>Sort by:
+        <!-- <p>Sort by:
             {% for sort_type in valid_sorts %}
             {% if sort == sort_type %}
             <strong>{{ sort_type }}</strong>
@@ -14,7 +14,7 @@
             <a href="?sort={{ sort_type }}">{{ sort_type }}</a>
             {% endif %}
             {% endfor %}
-        </p>
+        </p> -->
     </div>
     <div>
         {% for book in book_list %}
@@ -31,7 +31,6 @@
             </li>
             <br>
             <li>Added on {{ book.date_added }}</li>
-            <br>
             <!-- <i>Favorited on {{ book.date_favorited }}</i> -->
         </ul>
     </div>
@@ -45,10 +44,10 @@
         </section>
     </div>
 
-{% endfor %}
+    {% endfor %}
 
-{% else %}
-<p>You have not favorited any books.</p>
-{% endif %}
+    {% else %}
+    <p>You have not favorited any books.</p>
+    {% endif %}
 </div>
 {% endblock %}
