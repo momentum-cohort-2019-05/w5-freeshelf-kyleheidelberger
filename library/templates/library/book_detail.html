@@ -13,7 +13,6 @@
     </ul>{% endfor %}</p>
 <p><strong>Date Added:</strong> {{ book.date_added }}</p>
 <p><strong>Favorited:</strong> {{ book.num_favorited }} time{{book.num_favorited|pluralize}}</p>
-<!-- <p><strong>Favorited By:</strong> {{ favorite.user }}</p> -->
 
 {% if user.is_authenticated %}
 {% if user in favorite_users %}
