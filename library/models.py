@@ -32,7 +32,7 @@ class Book(models.Model):
     """
     A Model Class for books in the database.
     """
-    title = models.CharField(max_length=100, verbose_name="Book Title", 
+    title = models.CharField(max_length=100, verbose_name="Book Title",
                              help_text="Title of the book")
     author = models.ForeignKey(
         Author, on_delete=models.SET_NULL, null=True, verbose_name="Book Author")
@@ -78,6 +78,7 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = "categories"
+        ordering = ['name']
 
     def __str__(self):
         """
@@ -91,7 +92,8 @@ class Category(models.Model):
 class Favorite(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     book = models.ForeignKey(Book, on_delete=models.SET_NULL, null=True)
-    date_favorited = models.DateField(auto_now_add=True, verbose_name="Date Favorited")
+    date_favorited = models.DateField(
+        auto_now_add=True, verbose_name="Date Favorited")
 
     class Meta:
         unique_together = [['user', 'book']]
@@ -99,6 +101,7 @@ class Favorite(models.Model):
 
     def __str__(self):
         return f"{self.user} | {self.book}"
+
 
 class BookComment(models.Model):
     """
