@@ -10,8 +10,8 @@
                 alt="Responsive image">
             {{ book.title }}
         </a> ({{book.author}})</a><br>
-        <p>{{book.description}}</p>
-        <br>
+        <p><strong>Book Description: </strong>{{book.description}}</p>
+        <hr>
         {% endfor %}
     </div>
     {% else %}
