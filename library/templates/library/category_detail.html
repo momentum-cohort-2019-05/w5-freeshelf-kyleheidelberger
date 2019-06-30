@@ -9,7 +9,10 @@
         <a href="{% url 'book-detail' book.pk %}"><img src="{{ book.cover }}" class="img-fluid w-25 p-3"
                 alt="Responsive image">
             {{ book.title }}
-        </a> ({{book.author}})</a><br>
+        </a>
+        <div>
+            <strong>Author: </strong>{{book.author}}
+        </div><br>
         <p><strong>Book Description: </strong>{{book.description}}</p>
         <hr>
         {% endfor %}
