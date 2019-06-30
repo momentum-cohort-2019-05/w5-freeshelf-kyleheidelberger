@@ -1,11 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from library.models import Book, Author, Category, Favorite
+from library.models import Book, Author, Category, Favorite, BookComment
 from django.views import generic, View
 from django.contrib.auth.decorators import login_required
 from .forms import FavForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy, reverse
 
 # Create your views here.
 
@@ -134,6 +137,58 @@ def book_detail(request, pk):
             'form': form
         })
 
+
+class BookCommentCreate(LoginRequiredMixin, CreateView):
+    """
+    Form for adding a comment on a book. Requires login. 
+    """
+    model = BookComment
+    fields = [
+        'text',
+    ]
+
+    def get_context_data(self, **kwargs):
+        """
+        Add associated book to form template so can display its title in HTML.
+        """
+        # Call the base implementation first to get a context
+        context = super(BookCommentCreate, self).get_context_data(**kwargs)
+        # Get the book from id and add it to the context
+        context['book'] = get_object_or_404(Book, pk=self.kwargs['pk'])
+        return context
+
+    def form_valid(self, form):
+        """
+        Add commenter and associated book to form data before setting it as valid (so it is saved to model)
+        """
+        # Add logged-in user as author of comment
+        form.instance.commenter = self.request.user
+        # Associate comment with blog based on passed id
+        form.instance.book = get_object_or_404(Book, pk=self.kwargs['pk'])
+        # Call super-class form validation behaviour
+        return super(BookCommentCreate, self).form_valid(form)
+
+    def get_success_url(self):
+        """
+        After posting comment return to associated book.
+        """
+        return reverse('book-detail', kwargs={
+            'pk': self.kwargs['pk'],
+        })
+
+# couldnt get this working
+# class BookCommentDelete(LoginRequiredMixin, DeleteView):
+#     """
+#     Form for deleting a comment on a book. Requires login. 
+#     """
+#     model = BookComment
+#     success_url = reverse_lazy('book-detail')
+
+#     def get_context_data(self, **kwargs):
+#         context = super(BookCommentDelete, self).get_context_data(**kwargs)
+#         bookcomment_alt = BookComment.objects.get(id=self.kwargs.get('pk_comment', ''))
+#         context['bookcomment_alt'] = bookcomment_alt
+#         return context
 
 # FAILED ATTEMPT AT USING SAME CODE FROM BOOK LIST TO SORT CATEGORIES
 # def category_detail(request, pk):

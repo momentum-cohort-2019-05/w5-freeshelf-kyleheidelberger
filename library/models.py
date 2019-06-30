@@ -99,3 +99,29 @@ class Favorite(models.Model):
 
     def __str__(self):
         return f"{self.user} | {self.book}"
+
+class BookComment(models.Model):
+    """
+    Model representing a comment on a book.
+    """
+    text = models.TextField(max_length=500,
+                            help_text="Enter your comment here.")
+    post_date = models.DateTimeField(auto_now_add=True)
+
+    # Foreign Key used because Comment can only have one commenter, but commenters can have multiple comments
+    commenter = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+
+    def __str__(self):
+        """
+        String for representing the Model object.
+        """
+        len_title = 75
+        if len(self.text) > len_title:
+            titlestring = self.text[:len_title] + '...'
+        else:
+            titlestring = self.text
+        return titlestring
+
+    class Meta:
+        ordering = ['post_date']
