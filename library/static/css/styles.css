@@ -24,8 +24,10 @@ body {
 }
 
 #thumbnail {
-    max-width: 10%;
-    min-width: 5%;
+    max-width: 15%;
+    min-width: 10%;
+    padding: 5px;
+    
 }
 
 #cover {

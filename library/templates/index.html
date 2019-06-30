@@ -15,7 +15,7 @@
     {% for book in recent_book_list %}
     <li>
         <a href="{{ book.get_absolute_url }}">
-            <img src="{{ book.cover }}" id="thumbnail" class="img-fluid w-25 p-3" alt="Responsive image">
+            <img src="{{ book.cover }}" id="thumbnail" class="" alt="book cover">
             {{ book.title }}
         </a> -- {{book.author}}
     </li>
